@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd"
+    default-autowire="byName">
+
+    <bean id="commonDemoProducer" class="com.kangning.demo.framework.mq.CommonDemoProderProxy">
+        <constructor-arg name="groupName" value="TestGroup"/>
+        <constructor-arg name="nameSrv" value="${rocketmq.namespace}"/>
+    </bean>
+
+    <bean id="testProducer" class="com.kangning.demo.rocketmq.producer.TestProducer">
+        <property name="topicName" value="TestQueue"/>
+    </bean>
+
+
+    <bean id="testConsumer" class="com.kangning.demo.rocketmq.consumer.TestConsumer"/>
+
+    <bean id="commonDemoConsumerProxy" class="com.kangning.demo.framework.mq.CommonDemoConsumerProxy">
+        <constructor-arg name="groupName" value="TestGroup"/>
+        <constructor-arg name="nameSrv" value="${rocketmq.namespace}"/>
+        <constructor-arg name="topics">
+            <map>
+                <entry key="TestQueue" value-ref="testConsumer"/>
+            </map>
+        </constructor-arg>
+        <!--配置参照: org.apache.rocketmq.common.protocol.heartbeat.MessageModel-->
+        <constructor-arg name="messageModel" value="CLUSTERING"/>
+    </bean>
+
+</beans>

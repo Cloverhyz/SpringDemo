@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.kangning.demo.mapper.PersonInfoMapper">
+    <sql id="allColumn">
+          person_id,
+          person_name,
+          person_age,
+          update_time,
+          create_time
+    </sql>
+
+
+    <insert id="insertOne" useGeneratedKeys="true" keyProperty="personId"
+        parameterType="com.kangning.demo.model.md.PersonInfoMd">
+        insert into person_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="personName != null"> person_name,</if>
+            <if test="personAge != null"> person_age,</if>
+            <if test="updateTime != null"> update_time,</if>
+            <if test="createTime != null"> create_time,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="personName != null"> #{personName},</if>
+            <if test="personAge != null"> #{personAge},</if>
+            <if test="updateTime != null"> #{updateTime},</if>
+            <if test="createTime != null"> #{createTime},</if>
+        </trim>
+        ON DUPLICATE KEY UPDATE
+        <trim suffixOverrides=",">
+            <if test="personName != null"> person_name = #{personName},</if>
+            <if test="personAge != null"> person_age = #{personAge},</if>
+            <if test="updateTime != null"> update_time = #{updateTime},</if>
+            <if test="createTime != null"> create_time = #{createTime},</if>
+        </trim>
+    </insert>
+
+    <update id="updateOne" parameterType="com.kangning.demo.model.md.PersonInfoMd">
+        update person_info
+        <trim prefix="set" suffixOverrides=",">
+            <if test="personName != null"> person_name = #{personName},</if>
+            <if test="personAge != null"> person_age = #{personAge},</if>
+            <if test="updateTime != null"> update_time = #{updateTime},</if>
+            <if test="createTime != null"> create_time = #{createTime},</if>
+        </trim>
+        where person_id = #{personId}
+    </update>
+
+    <select id="queryPage" parameterType="com.kangning.demo.model.vo.PersonInfoVo" resultType="com.kangning.demo.model.md.PersonInfoMd">
+        select <include refid="allColumn"/>
+        from person_info
+        <include refid="where-condition"/>
+    </select>
+
+    <sql id="where-condition">
+        <trim prefix="where" prefixOverrides="and | or">
+            <if test="personName != null"> and person_name = #{personName},</if>
+            <if test="personAge != null"> and person_age = #{personAge},</if>
+            <if test="updateTime != null"> and update_time = #{updateTime},</if>
+            <if test="createTime != null"> and create_time = #{createTime},</if>
+        </trim>
+    </sql>
+
+</mapper>

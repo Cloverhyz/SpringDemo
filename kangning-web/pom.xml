@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>kangning-parent</artifactId>
+        <groupId>com.kangning.parent</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>kangning-web</artifactId>
+    <packaging>war</packaging>
+
+    <name>kangning-web</name>
+    <!-- FIXME change it to the project's website -->
+    <url>http://www.example.com</url>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>1.7</maven.compiler.source>
+        <maven.compiler.target>1.7</maven.compiler.target>
+        <!-- web 工程的所有文件默认为不 deploy 的-->
+        <maven_deploy_skip>false</maven_deploy_skip>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <!--本地项目依赖-->
+        <dependency>
+            <groupId>com.kangning.parent</groupId>
+            <artifactId>kangning-service</artifactId>
+        </dependency>
+    </dependencies>
+
+    <!--声明环境类型的配置-->
+    <profiles>
+        <!-- 本地配置 -->
+        <profile>
+            <id>local</id>
+            <properties>
+                <deploy.type>local</deploy.type>
+            </properties>
+        </profile>
+        <!-- dev 环境配置 -->
+        <profile>
+            <id>dev</id>
+            <properties>
+                <deploy.type>dev</deploy.type>
+            </properties>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+        </profile>
+        <!-- fvt 环境配置 -->
+        <profile>
+            <id>betafvt</id>
+            <properties>
+                <deploy.type>betafvt</deploy.type>
+            </properties>
+        </profile>
+        <!--t1 环境配置 -->
+        <profile>
+            <id>betat1</id>
+            <properties>
+                <deploy.type>betat1</deploy.type>
+            </properties>
+        </profile>
+        <!--t2 环境配置-->
+        <profile>
+            <id>betat2</id>
+            <properties>
+                <deploy.type>betat2</deploy.type>
+            </properties>
+        </profile>
+        <!-- 线上环境配置 -->
+        <profile>
+            <id>prod</id>
+            <properties>
+                <deploy.type>prod</deploy.type>
+            </properties>
+        </profile>
+    </profiles>
+
+
+
+    <build>
+        <finalName>kangning-web</finalName>
+
+        <!-- 资源文件声明,默认不做过滤，这里根据自身情况改成需要过滤-->
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+            <resource>
+                <directory>src/main/resources.${deploy.type}</directory>
+            </resource>
+        </resources>
+
+        <filters>
+            <filter>src/main/resources.${deploy.type}/default.properties</filter>
+        </filters>
+
+        <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
+            <plugins>
+                <!-- 默认承继此插件:用于生成 Mybatis 代码 -->
+                <plugin>
+                    <groupId>com.tujia.share.plugin</groupId>
+                    <artifactId>tujia-code-generator-maven-plugin</artifactId>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-javadoc-plugin</artifactId>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-jar-plugin</artifactId>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-war-plugin</artifactId>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-resources-plugin</artifactId>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-install-plugin</artifactId>
+                </plugin>
+
+                <!-- 要跳过 deploy maven_deploy_skip set 为 true  -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-deploy-plugin</artifactId>
+                </plugin>
+
+                <!-- 编译插件  -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                </plugin>
+
+                <!-- 用于生成 mybatis 代码  -->
+                <plugin>
+                    <groupId>org.mybatis.generator</groupId>
+                    <artifactId>mybatis-generator-maven-plugin</artifactId>
+                </plugin>
+
+                <!-- 代码测试可以用 Jetty 插件启动 -->
+                <plugin>
+                    <groupId>org.eclipse.jetty</groupId>
+                    <artifactId>jetty-maven-plugin</artifactId>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+</project>

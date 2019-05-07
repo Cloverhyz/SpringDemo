@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:tx="http://www.springframework.org/schema/tx" xmlns:aop="http://www.springframework.org/schema/aop"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xsi:schemaLocation="http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context-4.0.xsd
+       http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+       http://www.springframework.org/schema/tx
+       http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+       http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop-4.0.xsd">
+
+    <!--配置数据源-->
+    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
+        <property name="driverClassName" value="${kangning.demo.jdbc.driverClassName}"/>
+        <property name="dbType" value="mysql"/>
+        <property name="url" value="${kangning.demo.jdbc.url}"/>
+        <property name="username" value="${kangning.demo.jdbc.username}" />
+        <property name="password" value="${kangning.demo.jdbc.password}" />
+        <property name="maxActive" value="${kangning.demo.jdbc.maxActive}" />
+        <property name="maxWait" value="${kangning.demo.jdbc.maxWait}" />
+        <property name="defaultAutoCommit" value="${kangning.demo.jdbc.defaultAutoCommit}"/>
+        <property name="validationQuery" value="select 1" />
+        <property name="testOnBorrow" value="true" />
+        <property name="testWhileIdle" value="true" />
+        <!-- 开启Druid的监控统计功能 -->
+        <property name="filters" value="log4j"/>
+        <property name="proxyFilters">
+            <list>
+                <ref bean="stat-filter" />
+                <ref bean="wall-filter" />
+            </list>
+        </property>
+        <property name="minEvictableIdleTimeMillis" value="200000" />
+        <property name="timeBetweenEvictionRunsMillis" value="60000" />
+    </bean>
+
+    <!-- 监控 -->
+    <bean id="stat-filter" class="com.kangning.demo.framework.mybatis.DbStatFilter">
+        <constructor-arg name="applicationName" value="rba-distribution-web"/>
+        <property name="slowSqlMillis" value="50" />
+        <property name="logSlowSql" value="true" />
+        <property name="mergeSql" value="true" />
+    </bean>
+
+    <bean id="wall-filter" class="com.alibaba.druid.wall.WallFilter">
+        <property name="dbType" value="mysql" />
+        <property name="config" ref="wall-filter-config" />
+    </bean>
+
+    <bean id="wall-filter-config" class="com.alibaba.druid.wall.WallConfig" init-method="init">
+        <property name="dir" value="META-INF/druid/wall/mysql" />
+        <property name="selectWhereAlwayTrueCheck" value="false" />
+        <property name="selectHavingAlwayTrueCheck" value="false" />
+    </bean>
+
+
+    <!-- 创建SqlSessionFactory  MyBatis-->
+    <bean id="sqlSessionFactory" name="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource" />
+        <property name="configLocation" value="classpath:mybatis/mybatis-config.xml" />
+        <property name="mapperLocations" value="classpath:mybatis/mapper/*.xml"/>
+    </bean>
+
+    <!--创建sqlSession-->
+    <bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate" scope="prototype">
+        <constructor-arg ref="sqlSessionFactory" />
+    </bean>
+
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="com.kangning.demo.mapper" />
+        <property name="annotationClass" value="org.springframework.stereotype.Repository" />
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
+        <property name="markerInterface" value="com.kangning.demo.framework.mybatis.SqlMapper"/>
+    </bean>
+
+    <!--  事务管理 -->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource" />
+    </bean>
+
+    <tx:annotation-driven proxy-target-class="true" transaction-manager="transactionManager"/>
+
+</beans>
