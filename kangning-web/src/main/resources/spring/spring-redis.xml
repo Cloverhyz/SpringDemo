@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="nodes1" class="redis.clients.jedis.HostAndPort">
+        <constructor-arg name="host" value="127.0.0.1"/>
+        <constructor-arg name="port" value="7001"/>
+    </bean>
+    <bean id="nodes2" class="redis.clients.jedis.HostAndPort">
+        <constructor-arg name="host" value="127.0.0.1"/>
+        <constructor-arg name="port" value="7002"/>
+    </bean>
+    <bean id="nodes3" class="redis.clients.jedis.HostAndPort">
+        <constructor-arg name="host" value="127.0.0.1"/>
+        <constructor-arg name="port" value="7003"/>
+    </bean>
+
+    <bean id="poolConfig" class="redis.clients.jedis.JedisPoolConfig">
+        <property name="maxTotal" value="${redis.maxActive}"/>
+        <property name="maxIdle" value="${redis.maxIdle}"/>
+        <property name="maxWaitMillis" value="${redis.maxWaitMillis}"/>
+        <property name="testOnBorrow" value="${redis.testOnBorrow}"/>
+    </bean>
+
+    <bean id="jedisCluster" class="redis.clients.jedis.JedisCluster">
+        <constructor-arg name="jedisClusterNode">
+            <set>
+                <ref bean="nodes1"/>
+                <ref bean="nodes2"/>
+                <ref bean="nodes3"/>
+            </set>
+        </constructor-arg>
+        <constructor-arg name="connectionTimeout" value="300"/>
+        <constructor-arg name="soTimeout" value="300"/>
+        <constructor-arg name="maxAttempts" value="10"/>
+        <constructor-arg name="password" value="test123"/>
+        <constructor-arg name="poolConfig" ref="poolConfig"/>
+    </bean>
+</beans>

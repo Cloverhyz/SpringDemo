@@ -28,4 +28,5 @@
     <import resource="classpath:spring/spring-mvc.xml"/>
     <import resource="classpath:spring/spring-datasource.xml"/>
     <import resource="classpath:spring/spring-rocketmq.xml"/>
+    <import resource="classpath:spring/spring-redis.xml"/>
 </beans>
