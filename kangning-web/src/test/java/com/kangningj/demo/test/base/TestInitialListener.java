@@ -1,4 +1,4 @@
-package com.tujia.rba.stock.test.base;
+package com.kangningj.demo.test.base;
 
 
 

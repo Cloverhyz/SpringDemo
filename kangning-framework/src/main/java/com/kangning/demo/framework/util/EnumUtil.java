@@ -17,7 +17,7 @@ public class EnumUtil {
      * @param <T>   :枚举类型
      * @return
      */
-    public static <T extends RbaParentEnum> T getEnumByName(Class<T> clazz, String name) {
+    public static <T extends BaseEnum> T getEnumByName(Class<T> clazz, String name) {
         return Arrays.stream(clazz.getEnumConstants()).filter(e -> e.getName().equals(name)).findFirst().orElse(null);
     }
 
@@ -29,7 +29,7 @@ public class EnumUtil {
      * @param <T>   :枚举类型
      * @return
      */
-    public static <T extends RbaParentEnum> T getEnumByCode(Class<T> clazz, int code) {
+    public static <T extends BaseEnum> T getEnumByCode(Class<T> clazz, int code) {
         return Arrays.stream(clazz.getEnumConstants()).filter(e -> e.getCode() == code).findFirst().orElse(null);
     }
 

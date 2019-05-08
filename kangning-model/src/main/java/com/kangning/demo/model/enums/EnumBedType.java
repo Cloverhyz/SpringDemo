@@ -1,6 +1,6 @@
 package com.kangning.demo.model.enums;
 
-import com.kangning.demo.framework.util.RbaParentEnum;
+import com.kangning.demo.framework.util.BaseEnum;
 
 /**
  * @author 加康宁
@@ -8,7 +8,7 @@ import com.kangning.demo.framework.util.RbaParentEnum;
  * @date 2018-07-27 Time: 17:55
  * 床型枚举
  */
-public enum EnumBedType implements RbaParentEnum {
+public enum EnumBedType implements BaseEnum {
     BigBed(1,"大床"),
     SingleBed(2,"单人床"),
     RoundBed(3,"圆床"),

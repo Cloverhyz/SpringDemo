@@ -4,7 +4,7 @@ import com.kangning.demo.model.vo.PCData;
 import com.kangning.demo.model.vo.RegionInfo;
 import com.kangning.demo.service.ConsumerDefService;
 import com.kangning.demo.service.DemoService;
-import com.kangning.demo.service.RbaHousePushService;
+import com.kangning.demo.service.HousePushService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,7 +26,7 @@ public class HelloController {
     @Autowired
     private ConsumerDefService consumerDefService;
     @Autowired
-    private RbaHousePushService rbaHousePushService;
+    private HousePushService housePushService;
     @Autowired
     private DemoService demoService;
 
@@ -46,7 +46,7 @@ public class HelloController {
             pcDataList.add(Long.valueOf(i + ""));
 //            consumerDefService.pushByDelay(pcData);
             Thread.sleep(100 * 1);
-            rbaHousePushService.pushHouseByIdList(pcDataList);
+            housePushService.pushHouseByIdList(pcDataList);
         }
         System.out.println("\n======生产完毕======\n");
         return "Hello ";

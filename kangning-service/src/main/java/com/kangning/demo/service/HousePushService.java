@@ -9,7 +9,7 @@ import java.util.List;
  * @author 加康宁 Date: 2018-08-24 Time: 22:17
  * @version $Id$
  */
-public interface RbaHousePushService {
+public interface HousePushService {
 
     /**
      * 根据房屋Id列表推送房屋数据

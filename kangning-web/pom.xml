@@ -111,8 +111,13 @@
             <plugins>
                 <!-- 默认承继此插件:用于生成 Mybatis 代码 -->
                 <plugin>
-                    <groupId>com.tujia.share.plugin</groupId>
-                    <artifactId>tujia-code-generator-maven-plugin</artifactId>
+                    <groupId>org.mybatis.generator</groupId>
+                    <artifactId>mybatis-generator-maven-plugin</artifactId>
+                    <version>1.3.2</version>
+                    <configuration>
+                        <verbose>true</verbose>
+                        <overwrite>true</overwrite>
+                    </configuration>
                 </plugin>
 
                 <plugin>

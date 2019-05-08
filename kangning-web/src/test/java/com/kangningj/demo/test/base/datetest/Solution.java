@@ -1,9 +1,9 @@
-package com.tujia.rba.stock.test.base.datetest;
+package com.kangningj.demo.test.base.datetest;
 
-import java.util.HashSet;
+import com.kangning.demo.model.vo.PersonInfoVo;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Set;
 
 /**
  * @author 加康宁 Date: 2019-02-23 Time: 16:13
@@ -131,9 +131,15 @@ class Solution {
     }
 
     public static void main(String[] args) {
-        Set<Object> set = new HashSet<>();
+        /*Set<Object> set = new HashSet<>();
         set.add(new Object());
         System.out.println(( 0 +(int)'a' + (int)'d' )== (0 + (int)'b' + (int)'c'));
+        */
+
+
+        List<PersonInfoVo> personInfoVos = new ArrayList<>();
+        personInfoVos.add(null);
+        System.out.println(personInfoVos.get(0));
     }
 
 }

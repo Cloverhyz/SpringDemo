@@ -38,7 +38,7 @@
 
     <!-- 监控 -->
     <bean id="stat-filter" class="com.kangning.demo.framework.mybatis.DbStatFilter">
-        <constructor-arg name="applicationName" value="rba-distribution-web"/>
+        <constructor-arg name="applicationName" value="SpringDemo-web"/>
         <property name="slowSqlMillis" value="50" />
         <property name="logSlowSql" value="true" />
         <property name="mergeSql" value="true" />

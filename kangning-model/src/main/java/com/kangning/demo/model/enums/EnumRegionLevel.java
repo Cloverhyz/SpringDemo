@@ -1,6 +1,6 @@
 package com.kangning.demo.model.enums;
 
-import com.kangning.demo.framework.util.RbaParentEnum;
+import com.kangning.demo.framework.util.BaseEnum;
 
 /**
  * @author 加康宁
@@ -8,7 +8,7 @@ import com.kangning.demo.framework.util.RbaParentEnum;
  * @date 2018-07-27 Time: 12:21
  * 城市区域级别
  */
-public enum EnumRegionLevel  implements RbaParentEnum {
+public enum EnumRegionLevel  implements BaseEnum {
 
     Country(2, "国家"),
     Province(3, "省份"),

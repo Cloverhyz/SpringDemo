@@ -2,7 +2,7 @@ package com.kangning.demo.service.impl;
 
 import com.alibaba.fastjson.JSONArray;
 import com.kangning.demo.model.vo.PCData;
-import com.kangning.demo.service.RbaHousePushService;
+import com.kangning.demo.service.HousePushService;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -13,8 +13,8 @@ import java.util.List;
  * @author 加康宁 Date: 2018-08-24 Time: 22:17
  * @version $Id$
  */
-@Service("rbaHousePushService")
-public class RbaHousePushServiceImpl extends BasePushCService<PCData> implements RbaHousePushService {
+@Service("housePushService")
+public class HousePushServiceImpl extends BasePushCService<PCData> implements HousePushService {
 
 
     @Override
