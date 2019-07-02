@@ -7,13 +7,13 @@ import java.util.Date;
  * @author 加康宁 Date: 2019-04-23 Time: 11:49
  * @version $Id$
  */
-public class PersonInfoMd implements Serializable {
+public class PersonInfoMd<T> implements Serializable {
 
     private static final long serialVersionUID = 7802382357016929421L;
 
     private Long personId;
 
-    private String personName;
+    private T personName;
 
     private Integer personAge;
 
@@ -29,11 +29,11 @@ public class PersonInfoMd implements Serializable {
         this.personId = personId;
     }
 
-    public String getPersonName() {
+    public T getPersonName() {
         return personName;
     }
 
-    public void setPersonName(String personName) {
+    public void setPersonName(T personName) {
         this.personName = personName;
     }
 

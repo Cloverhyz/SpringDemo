@@ -3,6 +3,7 @@ package com.kangning.demo.dao.impl;
 import com.kangning.demo.dao.PersonInfoDao;
 import com.kangning.demo.mapper.PersonInfoMapper;
 import com.kangning.demo.model.md.PersonInfoMd;
+import com.kangning.demo.model.md.PersonRealMd;
 import com.kangning.demo.model.vo.PersonInfoVo;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;

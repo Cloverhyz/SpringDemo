@@ -2,6 +2,7 @@ package com.kangning.demo.controller;
 
 import com.kangning.demo.model.md.PersonInfoMd;
 import com.kangning.demo.model.vo.PersonInfoVo;
+import com.kangning.demo.model.vo.PersonName;
 import com.kangning.demo.service.PersonInfoService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +35,7 @@ public class QueryByPageControler {
         for (int i = 0; i < 100; i++){
             PersonInfoMd personInfoMd = new PersonInfoMd();
             personInfoMd.setPersonAge(i);
-            personInfoMd.setPersonName("小明" + i + "号");
+            personInfoMd.setPersonName(new PersonName());
             System.out.println("插入结果" + personInfoService.insertOne(personInfoMd));
         }
     }

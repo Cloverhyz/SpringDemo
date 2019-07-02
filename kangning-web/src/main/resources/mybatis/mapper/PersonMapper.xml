@@ -45,7 +45,7 @@
         where person_id = #{personId}
     </update>
 
-    <select id="queryPage" parameterType="com.kangning.demo.model.vo.PersonInfoVo" resultType="com.kangning.demo.model.md.PersonInfoMd">
+    <select id="queryPage" parameterType="com.kangning.demo.model.vo.PersonInfoVo" resultType="com.kangning.demo.model.md.PersonRealMd">
         select <include refid="allColumn"/>
         from person_info
         <include refid="where-condition"/>
@@ -53,6 +53,7 @@
 
     <sql id="where-condition">
         <trim prefix="where" prefixOverrides="and | or" suffixOverrides=",">
+            <if test="personId != null"> and person_id = #{personId},</if>
             <if test="personName != null"> and person_name = #{personName},</if>
             <if test="personAge != null"> and person_age = #{personAge},</if>
             <if test="updateTime != null"> and update_time = #{updateTime},</if>

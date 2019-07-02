@@ -16,9 +16,9 @@
         <property name="driverClassName" value="${kangning.demo.jdbc.driverClassName}"/>
         <property name="dbType" value="mysql"/>
         <property name="url" value="${kangning.demo.jdbc.url}"/>
-        <property name="username" value="${kangning.demo.jdbc.username}" />
-        <property name="password" value="${kangning.demo.jdbc.password}" />
-        <property name="maxActive" value="${kangning.demo.jdbc.maxActive}" />
+        <property name="username" value="${kangning.demo.jdbc.username}"/>
+        <property name="password" value="${kangning.demo.jdbc.password}"/>
+        <property name="maxActive" value="${kangning.demo.jdbc.maxActive}"/>
         <property name="maxWait" value="${kangning.demo.jdbc.maxWait}" />
         <property name="defaultAutoCommit" value="${kangning.demo.jdbc.defaultAutoCommit}"/>
         <property name="validationQuery" value="select 1" />

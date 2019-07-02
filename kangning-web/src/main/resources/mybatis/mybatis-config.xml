@@ -10,10 +10,13 @@
         <setting name="mapUnderscoreToCamelCase" value="true"/>
         <setting name="localCacheScope" value="STATEMENT"/>
     </settings>
-    
+
+    <typeHandlers>
+        <typeHandler handler="com.kangning.demo.dao.handler.PersonNameHandler"
+            javaType="com.kangning.demo.model.vo.PersonName"/>
+    </typeHandlers>
+
     <plugins>
         <plugin interceptor="com.kangning.demo.framework.mybatis.PagePlugin"/>
     </plugins>
-
-
 </configuration>

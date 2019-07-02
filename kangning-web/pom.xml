@@ -157,12 +157,6 @@
                     <artifactId>maven-compiler-plugin</artifactId>
                 </plugin>
 
-                <!-- 用于生成 mybatis 代码  -->
-                <plugin>
-                    <groupId>org.mybatis.generator</groupId>
-                    <artifactId>mybatis-generator-maven-plugin</artifactId>
-                </plugin>
-
                 <!-- 代码测试可以用 Jetty 插件启动 -->
                 <plugin>
                     <groupId>org.eclipse.jetty</groupId>
