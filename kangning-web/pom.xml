@@ -91,6 +91,16 @@
 
     <build>
         <finalName>kangning-web</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>8</source>
+                    <target>8</target>
+                </configuration>
+            </plugin>
+        </plugins>
 
         <!-- 资源文件声明,默认不做过滤，这里根据自身情况改成需要过滤-->
         <resources>
