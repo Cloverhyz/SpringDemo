@@ -36,6 +36,10 @@
             <groupId>com.kangning.parent</groupId>
             <artifactId>kangning-service</artifactId>
         </dependency>
+        <dependency>
+            <groupId>joda-time</groupId>
+            <artifactId>joda-time</artifactId>
+        </dependency>
     </dependencies>
 
     <!--声明环境类型的配置-->
