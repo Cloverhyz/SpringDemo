@@ -5,7 +5,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * @author 加康宁 Date: 2019-04-22 Time: 16:39
+ * @author kangning Date: 2019-04-22 Time: 16:39
  * @version $Id$
  */
 public abstract class BaseCommonConsumer<T> {

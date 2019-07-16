@@ -1,9 +1,9 @@
 package com.kangningj.demo.test.base.datetest;
 
-import com.kangning.demo.model.vo.PersonInfoVo;
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * @author 加康宁 Date: 2019-02-23 Time: 16:13
@@ -137,9 +137,36 @@ class Solution {
         */
 
 
-        List<PersonInfoVo> personInfoVos = new ArrayList<>();
-        personInfoVos.add(null);
-        System.out.println(personInfoVos.get(0));
+        /*List<PersonInfoVo> personInfoVos = new ArrayList<>();
+        personInfoVos.add(null);*/
+
+        System.out.println(myAtoi("-3.141*59"));
     }
 
+    public static int myAtoi(String str) {
+
+        String[] strs = str.trim().split("\\$");
+        if (str.length() == 0) {
+            return 0;
+        }
+        Pattern pattern = Pattern.compile("(^\\s*)([+-]?)(\\d+)");
+        Matcher matcher = pattern.matcher(str);
+        if (matcher.find()) {
+            str = matcher.group();
+        } else {
+            return 0;
+        }
+        try {
+            long index = Double.valueOf(str).longValue();
+            if (index >= Integer.MIN_VALUE && index <= Integer.MAX_VALUE) {
+                return (int) index;
+            }
+            if (index > Integer.MAX_VALUE) {
+                return Integer.MAX_VALUE;
+            }
+            return Integer.MIN_VALUE;
+        } catch (Exception e) {
+            return 0;
+        }
+    }
 }

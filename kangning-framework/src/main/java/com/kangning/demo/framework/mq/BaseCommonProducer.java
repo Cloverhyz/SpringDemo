@@ -11,7 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
- * @author 加康宁 Date: 2019-04-22 Time: 16:39
+ * @author kangning Date: 2019-04-22 Time: 16:39
  * @version $Id$
  */
 public abstract class BaseCommonProducer<T> {
@@ -28,9 +28,10 @@ public abstract class BaseCommonProducer<T> {
         try {
             return commonDemoProderProxy.sendMsg(message);
         } catch (InterruptedException | RemotingException | MQClientException | MQBrokerException e) {
+            logger.error("send rocketMq msg error", e);
             e.printStackTrace();
-            return null;
         }
+        return null;
     }
 
     public String getTopicName() {

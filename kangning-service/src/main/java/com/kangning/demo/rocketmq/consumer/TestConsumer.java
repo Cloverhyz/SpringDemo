@@ -6,7 +6,7 @@ import com.kangning.demo.model.vo.RegionInfo;
 import org.apache.rocketmq.common.message.MessageExt;
 
 /**
- * @author 加康宁 Date: 2019-04-22 Time: 17:09
+ * @author kangning Date: 2019-04-22 Time: 17:09
  * @version $Id$
  */
 public class TestConsumer extends BaseCommonConsumer<RegionInfo> {
