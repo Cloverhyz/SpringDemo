@@ -7,7 +7,7 @@ package com.kangningj.demo.test.base.service;
 
 public class ThreadSafeSample {
     public int sharedState;
-    public void nonSafeAction() {
+    public synchronized void nonSafeAction() {
         while (sharedState < 100000) {
             int former = sharedState++;
             int latter = sharedState;

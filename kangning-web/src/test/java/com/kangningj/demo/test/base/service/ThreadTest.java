@@ -13,7 +13,7 @@ import org.junit.Test;
 public class ThreadTest {
 
 
-    private static ExecutorService cachedThreadPool = new ThreadPoolExecutor(2, 4, 0, TimeUnit.MILLISECONDS, new SynchronousQueue<>(), r -> new Thread(r, "ThreadTest"));
+    private static ExecutorService cachedThreadPool = new ThreadPoolExecutor(2, Integer.MAX_VALUE, 0, TimeUnit.MILLISECONDS, new SynchronousQueue<>(), r -> new Thread(r, "ThreadTest"));
 
     @Test
     public void testLinkedBlockingQueue() throws InterruptedException {
