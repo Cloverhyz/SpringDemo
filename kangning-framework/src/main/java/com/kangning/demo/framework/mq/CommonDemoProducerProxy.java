@@ -14,9 +14,9 @@ import org.slf4j.LoggerFactory;
  * @author kangning Date: 2019-04-22 Time: 15:50
  * @version $Id$
  */
-public class CommonDemoProderProxy {
+public class CommonDemoProducerProxy {
 
-    private static final Logger logger = LoggerFactory.getLogger(CommonDemoProderProxy.class);
+    private static final Logger logger = LoggerFactory.getLogger(CommonDemoProducerProxy.class);
 
     private DefaultMQProducer defaultMQProducer;
 
@@ -28,7 +28,7 @@ public class CommonDemoProderProxy {
 
     private int retryTimes;
 
-    public CommonDemoProderProxy(String nameSrv, String groupName, String instanceName, int retryTimes) {
+    public CommonDemoProducerProxy(String nameSrv, String groupName, String instanceName, int retryTimes) {
         try {
             this.nameSrv = nameSrv;
             this.groupName = groupName;
@@ -105,7 +105,7 @@ public class CommonDemoProderProxy {
 
     @Override
     public String toString() {
-        return "CommonDemoProderProxy{" +
+        return "CommonDemoProducerProxy{" +
             "defaultMQProducer=" + defaultMQProducer +
             ", nameSrv='" + nameSrv + '\'' +
             ", groupName='" + groupName + '\'' +

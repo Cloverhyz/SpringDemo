@@ -6,7 +6,7 @@
     xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd"
     default-autowire="byName">
 
-    <bean id="commonDemoProderProxy" class="com.kangning.demo.framework.mq.CommonDemoProderProxy">
+    <bean id="commonDemoProducerProxy" class="com.kangning.demo.framework.mq.CommonDemoProducerProxy">
         <constructor-arg name="groupName" value="${rocketmq.group}"/>
         <constructor-arg name="nameSrv" value="${rocketmq.namespace}"/>
         <constructor-arg name="instanceName" value="${rocketmq.instanceName}"/>

@@ -23,6 +23,7 @@ public class DemoServiceImpl implements DemoService {
         if (sendResult == null){
             return  false;
         }
+        sendResult.getSendStatus();
         System.out.println(sendResult.getMsgId());
         return true;
     }

@@ -19,14 +19,14 @@ public abstract class BaseCommonProducer<T> {
     private static final Logger logger = LoggerFactory.getLogger(BaseCommonProducer.class);
 
     @Autowired
-    private CommonDemoProderProxy commonDemoProderProxy;
+    private CommonDemoProducerProxy commonDemoProducerProxy;
 
     private String topicName;
 
     public SendResult sendMsg(T object){
         Message message = new Message(this.getTopicName(), JSONObject.toJSONString(object).getBytes());
         try {
-            return commonDemoProderProxy.sendMsg(message);
+            return commonDemoProducerProxy.sendMsg(message);
         } catch (InterruptedException | RemotingException | MQClientException | MQBrokerException e) {
             logger.error("send rocketMq msg error", e);
             e.printStackTrace();
