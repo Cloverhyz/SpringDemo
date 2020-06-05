@@ -1,10 +1,28 @@
 package com.kangningj.demo.test.base.uuid;
 
+import static java.util.concurrent.TimeUnit.MILLISECONDS;
+
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.PriorityQueue;
 import java.util.Queue;
+import java.util.Set;
 import java.util.Stack;
+import java.util.concurrent.Executors;
+import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.SynchronousQueue;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 import org.apache.commons.lang3.StringUtils;
 
 /**
@@ -13,6 +31,8 @@ import org.apache.commons.lang3.StringUtils;
  * @Description:
  */
 public class IndexUtils {
+
+    private static final long DEFAULT_KEEPALIVE_MILLIS = 10L;
 
     public static int getTableIndex(String key) {
         return hash(key) & 127;
@@ -33,11 +53,40 @@ public class IndexUtils {
         System.out.println("n = " + Integer.toBinaryString(n));
         h = h ^ (m) ^ (n);
         System.out.println("h = " + Integer.toBinaryString(h));
+        LinkedHashMap<Integer, Integer> hashMap = new LinkedHashMap<>();
         return h;
+    }
+
+    /**
+     * 给定一个非空整数数组，除了2个元素只出现一次以外，其余每个元素均出现两次。找出那个只出现了一次的2个元素。
+     * 说明：时间空间复杂度最优
+     * @param args
+     */
+    public static void findReptNum(String[] args) {
+
+        int[] nums = {3, 6, 7, 9, 10, 20, 15, 7, 6, 20, 10, 34, 9, 3};
+        Map<Integer, Integer> numMap = new LinkedHashMap<>();
+        for (int i = 0; i < nums.length; i++) {
+            if (numMap.get(nums[i]) == null) {
+                numMap.put(nums[i], 1);
+                continue;
+            }
+            int count = numMap.get(nums[i]);
+            count++;
+            numMap.put(nums[i], count);
+        }
+
+        for (Entry<Integer, Integer> entry : numMap.entrySet()) {
+            if (entry.getValue() == 1) {
+                System.out.println(entry.getKey());
+            }
+        }
     }
 
 
     public static void main(String[] args) {
+        System.out.println(new Person().hashCode());
+        System.out.println(new Person().hashCode());
         System.out.println(Integer.toBinaryString(-127));
         System.out.println(Integer.toBinaryString(-126));
         Queue<Integer> windows = new ArrayDeque<>(3);
@@ -69,6 +118,12 @@ public class IndexUtils {
         return JumpFloor1(n - 1) + JumpFloor1(n - 2);
     }
 
+    /**
+     * 重建二叉树
+     * @param pre
+     * @param in
+     * @return
+     */
     public TreeNode reConstructBinaryTree(int[] pre, int[] in) {
         if (pre.length == 0 || pre.length != in.length) {
             return null;
@@ -196,6 +251,10 @@ public class IndexUtils {
         }
     }
 
+    /**
+     * 奇数偶数重拍
+     * @param array
+     */
     public void reOrderArray(int[] array) {
         if (array.length == 0) {
             return;
@@ -215,6 +274,12 @@ public class IndexUtils {
         }
     }
 
+    /**
+     * 第K大的数
+     * @param head
+     * @param k
+     * @return
+     */
     public TreeNode FindKthToTail(TreeNode head, int k) {
         if (head == null) {
             return null;
@@ -237,6 +302,11 @@ public class IndexUtils {
         return mHead;
     }
 
+    /**
+     * 反转链表
+     * @param head
+     * @return
+     */
     public static TreeNode ReverseList(TreeNode head) {
         if (head == null) {
             return null;
@@ -256,6 +326,12 @@ public class IndexUtils {
         return head;
     }
 
+    /**
+     * 合并链表
+     * @param list1
+     * @param list2
+     * @return
+     */
     public TreeNode Merge(TreeNode list1,TreeNode list2) {
         if (list1 == null) {
             return list2;
@@ -274,6 +350,12 @@ public class IndexUtils {
         return list3;
     }
 
+    /**
+     * 滑动窗口
+     * @param num
+     * @param size
+     * @return
+     */
     public ArrayList<Integer> maxInWindows(int [] num, int size) {
         ArrayList<Integer> arrayList = new ArrayList<>();
         if (size <= 0) {
@@ -293,6 +375,10 @@ public class IndexUtils {
         return max;
     }
 
+    /**
+     * 反转二叉树
+     * @param root
+     */
     public void Mirror(TreeNode root) {
         if (root == null) {
             return;
@@ -308,6 +394,11 @@ public class IndexUtils {
         root.right = m;
     }
 
+    /**
+     * 打印二维数组
+     * @param matrix
+     * @return
+     */
     public ArrayList<Integer> printMatrix(int [][] matrix) {
         ArrayList<Integer> nums = new ArrayList<>();
         int row = matrix.length;
@@ -399,21 +490,276 @@ public class IndexUtils {
         }
     }
 
-    /*public ListNode deleteDuplication(ListNode pHead) {
-        if (pHead == null || pHead.next == null) {
-            return pHead;
-        }
-        ArrayList<ListNode> arrayList = new ArrayList<>();
-        while (pHead != null) {
-            arrayList.add(pHead);
-            pHead = pHead.next;
-        }
-        ListNode root;
-        for (int i = 0; i < arrayList.size(); i++) {
-            if (arrayList.get(i).val == arrayList.get(i + 1).val) {
-                continue;
+    /**
+     * 查找峰值
+     * @param nums
+     * @return
+     */
+    public int findPeak(int[] nums){
+        if (nums != null && nums.length > 0) {
+            if (nums.length == 1) {
+                return 0;
             }
-            root =
+            if (nums[0] > nums[1]) {//数组单调递减
+                return 0;
+            }
+            int index = nums.length-1;
+            if (nums[index] > nums[index-1]) {//数组单调递增
+                return index;
+            }
+            int start = 0, end = index;
+            int mid = 0;
+            while (start < end) {//二分查找
+                mid = (start + end) / 2;
+                if (nums[mid] > nums[mid - 1] && nums[mid] > nums[mid + 1]) {
+                    return mid;
+                } else if (nums[mid] > nums[mid + 1]) {//处于下坡段, 即递减段
+                    end = mid - 1;
+                } else if (nums[mid] > nums[mid - 1]) {//处于上坡段, 即递增段
+                    start = mid + 1;
+                }
+            }
         }
-    }*/
+        return -1;
+    }
+
+    /**
+     * 查找峰值
+     * @param nums
+     * @return
+     */
+    public int findPeak1(int[] nums){
+        if (nums.length == 0){
+            return -1;
+        }
+        if (nums.length == 1) {
+            return nums[0];
+        }
+        int end = nums.length;
+        int start = 0;
+        int mid = 0;
+        while (mid < end) {
+            mid = (start + end)/2;
+            if (nums[mid] > nums[mid - 1] && nums[mid] > nums[mid + 1]) {
+                return mid;
+            } else if (nums[mid] > nums[mid + 1]) {//处于下坡段, 即递减段
+                end = mid - 1;
+            }else if (nums[mid] > nums[mid - 1]) {//处于上坡段, 即递增段
+                start = mid + 1;
+            }
+        }
+        return -1;
+    }
+
+    public void testThread() {
+        //SynchronousQueue<Runnable>
+        new ThreadPoolExecutor(0, Integer.MAX_VALUE, 60L, TimeUnit.SECONDS, new SynchronousQueue<Runnable>());
+        Executors.newCachedThreadPool();
+
+        //LinkedBlockingQueue
+        new ThreadPoolExecutor(10, 10, 0L, MILLISECONDS, new LinkedBlockingQueue<Runnable>());
+        Executors.newFixedThreadPool(10);
+
+        //DelayedWorkQueue
+        //new ThreadPoolExecutor(10, Integer.MAX_VALUE, DEFAULT_KEEPALIVE_MILLIS, MILLISECONDS, new DelayedWorkQueue());
+        Executors.newScheduledThreadPool(10);
+
+        //LinkedBlockingQueue
+        new ThreadPoolExecutor(1, 1,0L, MILLISECONDS, new LinkedBlockingQueue<Runnable>());
+        Executors.newSingleThreadExecutor();
+
+        ThreadLocal threadLocal = new ThreadLocal();
+        threadLocal.set(new Object());
+
+    }
+
+    /**
+     * 前序遍历
+     * @param root
+     */
+    public void preOrderTraverse1(TreeNode root) {
+        if (root != null) {
+            System.out.print(root.val+"  ");
+            preOrderTraverse1(root.left);
+            preOrderTraverse1(root.right);
+        }
+    }
+
+    /**
+     * 中序遍历
+     * @param root
+     */
+    public void inOrderTraverse1(TreeNode root) {
+        if (root != null) {
+            inOrderTraverse1(root.left);
+            System.out.print(root.val+"  ");
+            inOrderTraverse1(root.right);
+        }
+    }
+
+    /**
+     * 后续遍历
+     * @param root
+     */
+    public void postOrderTraverse1(TreeNode root) {
+        if (root != null) {
+            postOrderTraverse1(root.left);
+            postOrderTraverse1(root.right);
+            System.out.print(root.val+"  ");
+        }
+    }
+
+    /**
+     * 层序遍历 广度优先
+     * @param root
+     */
+    public void levelTraverse(TreeNode root) {
+        if (root == null) {
+            return;
+        }
+        LinkedList<TreeNode> queue = new LinkedList<>();
+        queue.pop();
+        queue.pollLast();
+
+        queue.offer(root);
+        while (!queue.isEmpty()) {
+            TreeNode node = queue.poll();
+            System.out.print(node.val+"  ");
+            if (node.left != null) {
+                queue.offer(node.left);
+            }
+            if (node.right != null) {
+                queue.offer(node.right);
+            }
+        }
+    }
+
+    /**
+     * 大顶堆 小顶堆
+     */
+    public void levelTraverse() {
+        PriorityQueue<Integer> maxQueue = new PriorityQueue<>();
+        PriorityQueue minQueue = new PriorityQueue<>(new Comparator() {
+            @Override
+            public int compare(Object o1, Object o2) {
+                return 0;
+            }
+
+            @Override
+            public boolean equals(Object obj) {
+                return false;
+            }
+        });
+    }
+
+    public static List<Integer> baoshu(int n) {
+
+        //初始化数组下标
+        List<Person> list = new ArrayList<>();
+        for (int i = 0; i < n; i++) {
+            Person person = new Person();
+            person.rest = true;
+            person.index = i;
+            list.add(person);
+        }
+
+        //循环数组
+        while (list.size() > 3) {
+            for(int i = 0; i < list.size(); i++) {
+                if ((i + 1) % 3 == 0){
+                    list.get(i).rest = false;
+                }
+            }
+            list.removeIf(person -> !person.rest);
+        }
+        return list.stream().map(person -> person.index).collect(Collectors.toList());
+    }
+
+    public static class Person{
+
+        public Boolean rest;
+
+        public Integer index;
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) {
+                return true;
+            }
+            if (o == null || getClass() != o.getClass()) {
+                return false;
+            }
+
+            Person person = (Person) o;
+
+            if (rest != null ? !rest.equals(person.rest) : person.rest != null) {
+                return false;
+            }
+            return index != null ? index.equals(person.index) : person.index == null;
+        }
+
+        @Override
+        public int hashCode() {
+            int result = rest != null ? rest.hashCode() : 0;
+            result = 31 * result + (index != null ? index.hashCode() : 0);
+            return result;
+        }
+    }
+
+
+
+
+    // 学校数据
+    class School{
+        int shoolid;
+        String schoolname; //学校名字
+    };
+    //上课数据
+    class Lesson{
+        int schoolid;
+        int studentCount; //学生数量
+    }
+//    分别有2个list：List<school> schools;List<lesson> lessons，存放school与lesson数据，lessions含有多条相同schoolid的数据，
+//    现在需要统计每个学校上课的学生总数，并且将学校数据按照上课学生总数降序排列，将上课学生总数>1000的学校名字存放到一个list中。
+
+    public void getSchoolLesson(List<School> schools, List<Lesson> lessons){
+        Map<Integer, School> schoolMap = new HashMap<>();
+        Map<Integer, Integer> lessonMap = new HashMap<>();
+        Set<School> count_1000 = new HashSet<>();
+
+        for (School school : schools) {
+            schoolMap.put(school.shoolid, school);
+        }
+
+        for (Lesson lesson : lessons) {
+            Integer num = lessonMap.get(lesson.schoolid);
+            if (num != null) {
+                num += lesson.studentCount;
+            }else {
+                num = lesson.studentCount;
+            }
+            lessonMap.put(lesson.schoolid, num);
+            if (num >= 1000) {
+                count_1000.add(schoolMap.get(lesson.schoolid));
+            }
+        }
+
+        PriorityQueue<Lesson> minQueue = new PriorityQueue<Lesson>(new Comparator<Lesson>() {
+            @Override
+            public int compare(Lesson o1, Lesson o2) {
+                return o1.studentCount - o2.studentCount;
+            }
+        });
+
+        for (Entry<Integer, Integer> entry : lessonMap.entrySet()) {
+            Lesson lesson = new Lesson();
+            lesson.schoolid = entry.getKey();
+            lesson.studentCount = entry.getValue();
+            minQueue.add(lesson);
+        }
+
+        List<School> count_1000_list = new ArrayList();
+        count_1000_list.addAll(count_1000);
+    }
+
 }

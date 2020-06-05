@@ -1,6 +1,7 @@
 package com.kangning.demo.controller;
 
 import com.kangning.demo.model.vo.PCData;
+import com.kangning.demo.model.vo.PersonInfoVo;
 import com.kangning.demo.model.vo.RegionInfo;
 import com.kangning.demo.service.ConsumerDefService;
 import com.kangning.demo.service.DemoService;
@@ -62,6 +63,15 @@ public class HelloController {
         regionInfo.setRegionId(1L);
         regionInfo.setRegionLevel(4);
         return demoService.insertTest(regionInfo);
+    }
+
+
+    @RequestMapping("/testmsg")
+    @ResponseBody
+    public Boolean testSendMsg(PersonInfoVo personInfoVo, RegionInfo regionInfo){
+        System.out.println(personInfoVo.getPersonId());
+        System.out.println(regionInfo.getRegionId());
+        return Boolean.TRUE;
     }
 
 }
