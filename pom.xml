@@ -23,7 +23,7 @@
         <maven.compiler.target>1.7</maven.compiler.target>
 
         <!--spring-->
-        <spring.core>4.3.18.RELEASE</spring.core>
+        <spring.core>5.3.18</spring.core>
         <spring.beans>4.3.18.RELEASE</spring.beans>
         <spring.context>4.3.18.RELEASE</spring.context>
         <spring.jdbc>4.3.18.RELEASE</spring.jdbc>
