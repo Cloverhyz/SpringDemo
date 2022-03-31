@@ -29,7 +29,7 @@
         <spring.jdbc>4.3.18.RELEASE</spring.jdbc>
         <spring.tx>4.3.18.RELEASE</spring.tx>
         <spring.web>4.3.18.RELEASE</spring.web>
-        <spring.webmvc>4.3.18.RELEASE</spring.webmvc>
+        <spring.webmvc>5.3.18</spring.webmvc>
         <spring.test>4.3.18.RELEASE</spring.test>
         <spring.framework.com.kangning.demo.aop>4.3.18.RELEASE</spring.framework.com.kangning.demo.aop>
         <spring.framework.aspects>4.3.18.RELEASE</spring.framework.aspects>
