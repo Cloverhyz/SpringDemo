@@ -24,7 +24,7 @@
 
         <!--spring-->
         <spring.core>4.3.18.RELEASE</spring.core>
-        <spring.beans>4.3.18.RELEASE</spring.beans>
+        <spring.beans>5.3.18</spring.beans>
         <spring.context>4.3.18.RELEASE</spring.context>
         <spring.jdbc>4.3.18.RELEASE</spring.jdbc>
         <spring.tx>4.3.18.RELEASE</spring.tx>
