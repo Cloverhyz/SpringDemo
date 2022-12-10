@@ -28,7 +28,7 @@
         <spring.context>4.3.18.RELEASE</spring.context>
         <spring.jdbc>4.3.18.RELEASE</spring.jdbc>
         <spring.tx>4.3.18.RELEASE</spring.tx>
-        <spring.web>4.3.18.RELEASE</spring.web>
+        <spring.web>6.0.0</spring.web>
         <spring.webmvc>4.3.18.RELEASE</spring.webmvc>
         <spring.test>4.3.18.RELEASE</spring.test>
         <spring.framework.com.kangning.demo.aop>4.3.18.RELEASE</spring.framework.com.kangning.demo.aop>
